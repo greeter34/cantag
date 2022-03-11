@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdbool.h>
 #include "globals.h"
 
 void init_game() {
@@ -13,9 +14,10 @@ void init_game() {
 	home.southwest = NULL;
 	home.up = NULL;
 	home.down = NULL;
+	home.here = false; 
 	strcpy(home.name, "Home");
 	strcpy(home.short_desc, "Your home in the game");
-	strcpy(home.long_desc, "You find yourself in a large cube closed on most sides.\n\nThere is one exit to the north.\n"); 
+	strcpy(home.long_desc, "You find yourself in a large cube closed on most sides.\n\nThere is one exit to the north."); 
 	player.location = &home;
 	
 	//north of starting location
@@ -29,8 +31,10 @@ void init_game() {
 	north1.southwest = NULL;
 	north1.up = NULL;
 	north1.down = NULL;
+	north1.here = false; 
 	strcpy(north1.name, "North1"); //this name needs to be better
-	strcpy(north1.long_desc, "You find yourself in a large cube closed on most sides.\n\nThere is one exit to the south.\n");
+	strcpy(north1.short_desc, "The other end of the rectangular prism");
+	strcpy(north1.long_desc, "You find yourself in a large cube closed on most sides.\n\nThere is one exit to the south.");
 	return;
 }
 

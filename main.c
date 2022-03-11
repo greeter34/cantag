@@ -4,7 +4,11 @@
 #include "globals.h"
 
 void display() { //displays the room description prior to reloading the loop() function
-	printw("%s\n", player.location->long_desc);
+    if (player.location-> here == true) {printw("%s\n", player.location->short_desc);}	
+    if (player.location->here == false) {	
+		printw("%s\n", player.location->long_desc);
+		player.location->here = true; 
+	}	
 	refresh();
 	return;
 }
@@ -21,12 +25,14 @@ void loop() {
 int main() {
 	initscr();
 	keypad(stdscr, TRUE);
+	cbreak();
+	scrollok(stdscr, TRUE);
 	start_color();
 	clear();
 	printw("Welcome to the adventure. Please enter your name below. Maximum 10 characters.\n");
 	refresh();
 	getnstr(player.name, 10);
-	if (strlen(player.name) == 0) printw("Name not entered. Naming you Bob.\n\n");
+	if (strlen(player.name) == 0) printw("Name not entered. Naming you Bob.\n");
 	printw("Initializing game %s. Please wait...\n", player.name);
 	refresh();
 	init_game();

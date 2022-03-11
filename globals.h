@@ -26,6 +26,7 @@ typedef struct locations {
 	char name[30];
 	char long_desc[255];
 	char short_desc[50];	
+	bool here; //if we've been here set this to true, then use short_desc instead of long_desc
 } place;
 
 typedef struct sprites {
@@ -60,6 +61,14 @@ void help();
 void quit();
 void north();
 void south();
+void east();
+void west();
+void northeast();
+void northwest();
+void southeast();
+void southwest();
+void up();
+void down();
 
 //init.c
 void init_game();
