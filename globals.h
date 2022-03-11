@@ -1,38 +1,66 @@
 #ifndef GLOBALS
-#define _GLOBALS
+#define GLOBALS
+#include <stdbool.h>
 
-//global variables
-
-static int seen = 1;
-
-// type definitons for structures
-
-typedef struct sprites {
-	char name[15];
-	int health;
-	int money;
-	unsigned int attack;
-	unsigned int defense;
-	//inventory to go here
-} sprite;
+//type definitions for structures
 
 typedef struct objects {
 	char name[30];
-	char desc[100]; //description
-	char extdesc[255]; //extended description
+	int weight;
+	signed short int curx;
+	signed short int cury;
+	int location; //to be used with ID to determine where to stick items. -1 is player inventory
 } object;
 
 typedef struct locations {
-	short unsigned int id;
-	//possibly add name here
-	char desc[100];
-	char extdesc[255]; //extended description
-	int seen; //0 if unseen, other value otherwise. possibly increment in order of seen rooms
+	struct locations *north;
+	struct locations *northeast;
+	struct locations *east;
+	struct locations *southeast;
+	struct locations *south;
+	struct locations *southwest;
+	struct locations *west;
+	struct locations *northwest;
+	struct locations *up;
+	struct locations *down;
+	char name[30];
+	char long_desc[255];
+	char short_desc[50];	
+} place;
+
+typedef struct sprites {
+	char name[10];
+	place *location;
 	//inventory to go here
-} location;
+} sprite;
+
+// global variables declared in globals.c
+
+extern sprite player;
+extern place home;
+extern place north1;
 
 //function definitions
 
-char all_lower(char *p);
+//parser.cpp 
+void parse(char *cmd);
 
+//main.c
+void unknown_cmd();
+void help();
+int main();
+void display();
+void quit(int reason);
+void init_game();
+void loop();
+
+//cmds.c
+void unknown_cmd();
+void help();
+void quit();
+void north();
+void south();
+
+//init.c
+void init_game();
 #endif
