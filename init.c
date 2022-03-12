@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include "globals.h"
 
+//detailed comments explaining the comments in this file can be found in globals.c
+
 void init_game() {
 	//starting location for player
 	home.north = &north1; 
@@ -20,7 +22,7 @@ void init_game() {
 	strcpy(home.long_desc, "You find yourself in a large cube closed on most sides.\n\nThere is one exit to the north."); 
 	player.location = &home;
 	
-	//north of starting location
+	// 1,0,0
 	north1.north = NULL;
 	north1.south = &home;
 	north1.east = NULL;

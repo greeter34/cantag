@@ -3,12 +3,29 @@
 #include <stdlib.h>
 #include "globals.h"
 
-void display() { //displays the room description prior to reloading the loop() function
-    if (player.location-> here == true) {printw("%s\n", player.location->short_desc);}	
-    if (player.location->here == false) {	
-		printw("%s\n", player.location->long_desc);
-		player.location->here = true; 
+void display() { //displays the room description prior to reloading the loop() function. this will be edited later to format output to prevent lines from being broken up mid-word
+	/* i'll be the first to admit that this function looks strange. i plan to have the lengths of the tokens added up and compared against rows *
+	 * then output them so that words don't get split across separate lines, a common problem i've experienced before, particularly where users *
+	 * get to pick their own names. currently only the string tokening exists. this code will be updated later                                  */ 
+	int rows = 0, cols = 0;
+	char *token;
+	getmaxyx(stdscr, rows, cols);
+	if (player.location-> here == true) {
+		token = strtok(player.location->short_desc, " ");
+		while (token != NULL) {
+			printw("%s ", token);
+			token = strtok(NULL, " ");	
+		}	
 	}	
+	if (player.location->here == false) {
+		token = strtok(player.location->short_desc, " ");
+		while (token != NULL) {
+			printw("%s ", token);
+			token = strtok(NULL, " ");
+		}	
+		player.location->here = true; 
+	}
+	printw("\n");	
 	refresh();
 	return;
 }
@@ -28,7 +45,10 @@ int main() {
 	cbreak();
 	scrollok(stdscr, TRUE);
 	start_color();
-	clear();
+	init_color(COLOR_BLACK, 0, 0, 0); //sets black to darkest possible value. found on my terminal personally to be needed
+	init_pair(1, COLOR_WHITE, COLOR_BLACK); 
+	attron(COLOR_PAIR(1));
+	bkgd(COLOR_PAIR(1));
 	printw("Welcome to the adventure. Please enter your name below. Maximum 10 characters.\n");
 	refresh();
 	getnstr(player.name, 10);
