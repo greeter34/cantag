@@ -1,6 +1,8 @@
 #ifndef GLOBALS
 #define GLOBALS
 #include <stdbool.h>
+#define MAX_DESC 999
+//MAX_DESC will be the maximum length of a string for the long_desc in the locations structures
 
 //type definitions for structures
 
@@ -24,7 +26,7 @@ typedef struct locations {
 	struct locations *up;
 	struct locations *down;
 	char name[30];
-	char long_desc[2554];
+	char long_desc[MAX_DESC];
 	char short_desc[50];	
 	bool here; //if we've been here set this to true, then use short_desc instead of long_desc
 } place;
