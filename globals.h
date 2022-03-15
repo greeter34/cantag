@@ -9,7 +9,7 @@ typedef struct objects {
 	int weight;
 	signed short int curx;
 	signed short int cury;
-	int location; //to be used with ID to determine where to stick items. -1 is player inventory
+	struct locations *location;	
 } object;
 
 typedef struct locations {
@@ -24,7 +24,7 @@ typedef struct locations {
 	struct locations *up;
 	struct locations *down;
 	char name[30];
-	char long_desc[255];
+	char long_desc[2554];
 	char short_desc[50];	
 	bool here; //if we've been here set this to true, then use short_desc instead of long_desc
 } place;
@@ -40,6 +40,7 @@ typedef struct sprites {
 extern sprite player;
 extern place home;
 extern place north1;
+extern object paint;
 
 //function definitions
 
@@ -54,6 +55,7 @@ void display();
 void quit(int reason);
 void init_game();
 void loop();
+void display();
 
 //cmds.c
 void unknown_cmd();

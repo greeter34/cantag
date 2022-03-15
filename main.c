@@ -3,29 +3,45 @@
 #include <stdlib.h>
 #include "globals.h"
 
-void display() { //displays the room description prior to reloading the loop() function. this will be edited later to format output to prevent lines from being broken up mid-word
-	/* i'll be the first to admit that this function looks strange. i plan to have the lengths of the tokens added up and compared against rows *
-	 * then output them so that words don't get split across separate lines, a common problem i've experienced before, particularly where users *
-	 * get to pick their own names. currently only the string tokening exists. this code will be updated later                                  */ 
-	int rows = 0, cols = 0;
-	char *token;
-	getmaxyx(stdscr, rows, cols);
-	if (player.location-> here == true) {
-		token = strtok(player.location->short_desc, " ");
+void display() { //displays the room description prior to reloading the loop() function
+	int max_x = 0, max_y = 0, length = 0; //get maximum width and screen at time the function is called
+	char description[800], to_print[180]; //copy the appropriate description, to_print will be written out to the screen
+	char *token; //for strtok
+	strcpy(to_print, "");
+	if (player.location-> here) { 
+		getmaxyx(stdscr, max_y, max_x); //called here in case the terminal size changes while outputting text
+		strcpy(description, player.location->short_desc);
+		token = strtok(description, " ");
 		while (token != NULL) {
-			printw("%s ", token);
-			token = strtok(NULL, " ");	
-		}	
-	}	
-	if (player.location->here == false) {
-		token = strtok(player.location->short_desc, " ");
-		while (token != NULL) {
-			printw("%s ", token);
+			length += strlen(token);
+			if (strlen(to_print) > max_y) {
+				printw("%s\n", to_print);
+				length = strlen(token);
+				strcpy(to_print, "");
+			}
+			strcat(to_print, token);
+			strcat(to_print, " ");
 			token = strtok(NULL, " ");
 		}	
-		player.location->here = true; 
-	}
-	printw("\n");	
+	}	
+	else {
+		getmaxyx(stdscr, max_y, max_x);
+		strcpy(description, player.location->long_desc);	
+		token = strtok(description, " ");
+		while (token != NULL) {	
+			length += strlen(token);
+			if (strlen(to_print) > max_y) {
+				printw("%s\n", to_print);
+				length = strlen(token);
+				strcpy(to_print, "");
+			}	
+			strcat(to_print, token);
+			strcat(to_print, " ");
+			token = strtok(NULL, " ");
+		}
+		player.location->here = true;
+	}	
+	printw("%s\n", to_print);
 	refresh();
 	return;
 }
