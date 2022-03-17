@@ -29,6 +29,7 @@ void no_exit() { //user picks a direction invalid for the current location
 	return;
 }
 
+//directional commands
 void north() { //user typed north or some variation
 	if (player.location->north == NULL) {no_exit();} //have another function for this
 	else player.location = player.location->north;

@@ -19,6 +19,7 @@ void parse(char *cmd) {
 	else if (new_cmd == "southwest" || new_cmd == "sw" || new_cmd == "go southwest") {southwest();}
 	else if (new_cmd == "up" || new_cmd == "u" || new_cmd == "go up") {up();}
 	else if (new_cmd == "down" || new_cmd == "d" || new_cmd == "go down") {down();} 
+	else if (new_cmd == "inventory" || new_cmd == "i") {print_objects(&player);}
 	else {
 		unknown_cmd();
 	} 
