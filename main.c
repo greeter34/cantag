@@ -39,7 +39,7 @@ void display() { //displays the room description prior to reloading the loop() f
 	int max_x = 0, max_y = 0, length = 0; //get maximum width and screen at time the function is called
 	char description[MAX_DESC], *to_print, *token ; //copy the appropriate description, to_print will be written out to the screen while token is for strtok();
 	getmaxyx(stdscr, max_y, max_x);	
-	to_print = (char *) malloc(sizeof(char) * (max_x + 1)); //dynamically allocate enough memory for to_print to print one line
+	to_print = malloc(max_x + 1); //dynamically allocate enough memory for to_print to print one line
 	if (to_print == NULL) panic();
 	strcpy(to_print, "");
 	if (player.location->been_here) {
@@ -69,12 +69,11 @@ void display() { //displays the room description prior to reloading the loop() f
 }
 
 void loop() {
-	display();
-	char cmd[80];
-	getnstr(cmd, 80);
-	parse(cmd);
-	loop();
-	return;
+		display();
+		char cmd[80];
+		getnstr(cmd, 80);
+		parse(stl(cmd));
+		if (running) {loop();}
 }
 
 int main() {
@@ -99,6 +98,7 @@ int main() {
 	getch();
 	clear();
 	loop();
-	endwin(); //These will be remaining here in case execusion ever somehow gets back to this point
+	endwin(); //we eventually want execution to return to this point 
+	printf("Program terminated.\n");	
 	return 0;
 }

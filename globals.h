@@ -30,15 +30,18 @@ typedef struct objects {
 	struct objects *down;
 } object;
  
+extern bool running;
 extern object player;
 extern object home;
 extern object north1;
 extern object paint;
 extern object objs[TTL_OBJS];
+
 //function definitions
 
-//parser.cpp 
+//parser.c 
 void parse(char *cmd);
+char *stl(char *string);
 
 //main.c
 void unknown_cmd();

@@ -1,4 +1,5 @@
 #include "globals.h"
+#include <stdbool.h>
 
 /* Below are structures representing sprites, locations and  *
  * objects. Sprites will be individually commented with what *
@@ -15,3 +16,5 @@ object home; //starting location for the player
 object north1; // 1,0,0 
 object paint;
 object objs[TTL_OBJS];
+
+bool running = true; //flag for if our game is running

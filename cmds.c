@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <curses.h>
 #include "globals.h"
 
@@ -15,13 +14,14 @@ void unknown_cmd() { //unknown command was entered
 }
 
 void quit (int reason) { //user typed quit
+	running = false;
 	if (reason == 0) { //user initiated quit through quit command. should prompt for save/confirmation of quit 
 		printw("Thank you for playing. Press any key to quit now.\n");
 		refresh();	
 		getch();
 	}
 	endwin();
-	exit(0);
+    return;
 }
 
 void no_exit() { //user picks a direction invalid for the current location
