@@ -15,16 +15,19 @@ void panic() {
 
 void print_objects(object *where) { //displays a list of objects for a given location, or in inventory if *where points to player
 	object *obj;
-	bool obj_flag = false, inventory = false; //is an object here? if not, no output. also are we checking inventory or a given location?
-	if (where == &player) inventory == true;
+	bool obj_flag = false, inventory = false, print = true; //is an object here? if not, no output. also are we checking inventory or a given location? also do we print the objects are here message?
+	if (obj->location == &player) inventory == true;
+	//printw("Mem address of player: %p\nMem address of *where: %p\n", &player, &where); //this is for bug testing in case i need it later
 	for (obj = objs; obj < objs + TTL_OBJS; obj++) {
 		if (obj->location == where) {
-			if (!obj_flag) {
+			if (!obj_flag && inventory && print) {
 				printw("Objects that are here:\n\n");
 				obj_flag = true;
 			}
-			else if (inventory) {
+			if ((obj->location == &player) && !inventory && print) {
 				printw("Objects in your inventory:\n\n");
+				inventory = true;
+				print = false;	
 			}	
 			printw("%s\n", obj->name);
 		}

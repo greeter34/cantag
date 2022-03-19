@@ -1,8 +1,25 @@
 #include <curses.h>
+#include <string.h>
 #include "globals.h"
 
 void help() { //print out help. this will be made context specific
 	printw("This is the help function.\n");
+	refresh();
+	return;
+}
+
+void take(char *noun) { //let's take something shall we
+	int i = 0; //our iterator
+	bool taken = false; //flag for if an object has been taken yet or not 
+	for (i = 0; i != TTL_OBJS; i++) { //set up a loop to check each object against the input provided by the user
+		if (!strcmp(noun, objs[i].name)) {
+			printw("You have taken the object and carefully stuffed it in your inventory.\n");
+			taken = true;
+			objs[i].location = &player;	
+			break;
+		}
+	}
+	if (!taken) {printw("There is no item here called %s\n", noun);} 
 	refresh();
 	return;
 }

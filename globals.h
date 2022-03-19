@@ -1,8 +1,8 @@
 #ifndef GLOBALS
 #define GLOBALS
 #include <stdbool.h>
-#define MAX_DESC 999
-#define TTL_OBJS 1
+#define MAX_DESC 1024 
+#define TTL_OBJS 2 
 //MAX_DESC will be the maximum length of a string for the long_desc in the locations structures
 //TTL_OBJS is the total number of actual objects in the game that the player can interact with
 
@@ -68,6 +68,7 @@ void southeast();
 void southwest();
 void up();
 void down();
+void take(char *noun);
 
 //init.c
 void init_game();

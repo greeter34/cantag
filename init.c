@@ -51,6 +51,8 @@ void init_game() {
 */
 
 	//objects that the player can interact with
+
+	//paint
 	strcpy(objs[0].name, "paint");	
 	objs[0].weight = 10;
 	objs[0].location = &north1;
@@ -59,6 +61,13 @@ void init_game() {
 	strcpy(objs[0].short_desc, "Bright red paint, perfect for painting any room.");
 	strcpy(objs[0].long_desc, "It looks like this paint was fabricated by the Corporation. Its fumes give you a headache. You believe it could be highly inflammable.");	
 
+	strcpy(objs[1].name, "coin");
+	objs[1].weight = 0;
+	objs[1].location = &north1;
+	objs[1].can_move = true;
+	objs[1].exists = true;
+	strcpy(objs[1].short_desc, "A shiny golden colored coin.");
+	strcpy(objs[1].long_desc, "A shiny golden colored coin with Lady Liberty stamped on one side and the year 1867 on it. It is officially valued at $5 but you figure it is worth considerably more today.");
 
 	return;
 }
