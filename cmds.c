@@ -12,10 +12,11 @@ void take(char *noun) { //let's take something shall we
 	int i = 0; //our iterator
 	bool taken = false; //flag for if an object has been taken yet or not 
 	for (i = 0; i != TTL_OBJS; i++) { //set up a loop to check each object against the input provided by the user
-		if (!strcmp(noun, objs[i].name)) {
+		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location)) {
 			printw("You have taken the object and carefully stuffed it in your inventory.\n");
 			taken = true;
 			objs[i].location = &player;	
+			objs[i].hidden = false;	
 			break;
 		}
 	}
@@ -23,6 +24,24 @@ void take(char *noun) { //let's take something shall we
 	refresh();
 	return;
 }
+
+void use (char *noun) { //let's use something shall we
+	bool used = false;
+	if (!strcmp(noun, "paint") && (objs[0].location == &player)) {
+		printw("You spill the paint everywhere, using it up.\n");
+		objs[0].location = NULL;
+		used = true;
+	}
+	if (!strcmp(noun, "coin") && (objs[1].location == &player)) {
+		printw("You spend your coin.\n");
+		objs[1].location = NULL;
+		used = true;
+	}
+	if (!used) {
+		printw("You don't know how to use %s here, or it is not in inventory\n", noun);
+	}
+	return;
+}		
 
 void unknown_cmd() { //unknown command was entered
 	printw("Unknown command entered. For help use help.\n");

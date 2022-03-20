@@ -11,10 +11,10 @@
 typedef struct objects {
 	char name[30];
 	int weight;
-	struct objects *location;
+	struct objects *location; //set location to NULL to destroy an object
 	bool can_move;
-	bool exists;
 	bool been_here;
+	bool hidden; //objects can remain hidden until exmaine command is used to reveal them, at which point hidden is set to false
 	char short_desc[50];
 	char long_desc[MAX_DESC];
 	//location pointers
@@ -69,6 +69,7 @@ void southwest();
 void up();
 void down();
 void take(char *noun);
+void use (char *noun);
 
 //init.c
 void init_game();

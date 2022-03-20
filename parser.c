@@ -69,9 +69,15 @@ void parse(char *cmd) {
 	//two word commands go here
 
 	char *noun = strtok(cmd, " ");	
+
 	if (!strcmp(cmd, "take")) {
 		noun = strtok(NULL, " ");	
 		take(noun);
+		valid = true;
+	}
+	if (!strcmp(cmd, "use")) {
+		noun = strtok(NULL, " ");
+		use(noun);
 		valid = true;
 	}
 

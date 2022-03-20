@@ -45,7 +45,6 @@ void init_game() {
 	paint.weight = 5;
 	paint.location = &north1;
 	paint.can_move = true;
-	paint.exists = true;
 	strcpy(paint.short_desc, "Bright red paint, perfect for painting any room.");
 	strcpy(paint.long_desc, "It looks like this paint was fabricated by the Corporation. Its fumes give you a headache. You believe it could be highly inflammable.");
 */
@@ -57,7 +56,7 @@ void init_game() {
 	objs[0].weight = 10;
 	objs[0].location = &north1;
 	objs[0].can_move = true;
-	objs[0].exists = true;
+	objs[0].hidden = true;
 	strcpy(objs[0].short_desc, "Bright red paint, perfect for painting any room.");
 	strcpy(objs[0].long_desc, "It looks like this paint was fabricated by the Corporation. Its fumes give you a headache. You believe it could be highly inflammable.");	
 
@@ -65,7 +64,7 @@ void init_game() {
 	objs[1].weight = 0;
 	objs[1].location = &north1;
 	objs[1].can_move = true;
-	objs[1].exists = true;
+	objs[1].hidden = false;	
 	strcpy(objs[1].short_desc, "A shiny golden colored coin.");
 	strcpy(objs[1].long_desc, "A shiny golden colored coin with Lady Liberty stamped on one side and the year 1867 on it. It is officially valued at $5 but you figure it is worth considerably more today.");
 
