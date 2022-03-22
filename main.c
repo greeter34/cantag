@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "globals.h"
 
-void panic() {
+void panic() { //this function is called for more severe problems, like if we have a call to malloc() fail
 	endwin();
 	//call the save game function here once it exists
 	printf("Error: This program has experienced an unrecoverable error and must close now.\n");
@@ -13,6 +13,22 @@ void panic() {
 	exit(EXIT_FAILURE);
 }
 
+void print_exits() {
+	printw("Valid exits: ");	
+	if (player.location->north) {printw("north\n");}
+	if (player.location->south) {printw("south\n");}
+	if (player.location->east) {printw("east\n");}
+	if (player.location->west) {printw("west\n");}
+	if (player.location->northeast) {printw("northeast\n");}
+	if (player.location->southeast) {printw("southeast\n");}
+	if (player.location->southwest) {printw("southwest\n");}
+	if (player.location->northwest) {printw("northwest\n");}
+	if (player.location->up) {printw("up\n");}
+	if (player.location->down) {printw("down\n");}
+	printw("\n");
+	return;
+}
+
 void print_objects(object *where) { //displays a list of objects for a given location, or in inventory if *where points to player
 	object *obj;
 	bool obj_flag = false, inventory = false, print = true; //is an object here? if not, no output. also are we checking inventory or a given location? also do we print the objects are here message?
@@ -20,7 +36,7 @@ void print_objects(object *where) { //displays a list of objects for a given loc
 //	printw("Mem address of player: %p\nMem address of *where: %p\n", &player, where); //this is for bug testing in case i need it later
 	for (obj = objs; obj < objs + TTL_OBJS; obj++) {
 		if (obj->location == where && !obj->hidden) {
-			if (!obj_flag && inventory && print) {
+			if (!obj_flag && !inventory && print) {
 				printw("Objects that are here:\n\n");
 				obj_flag = true;
 			}
@@ -39,20 +55,14 @@ void print_objects(object *where) { //displays a list of objects for a given loc
 	return;
 }
 
-void display() { //displays the room description prior to reloading the loop() function
+void display(char *to_output) { //displays the argument passed to it to the user, in a way that prevents words from being split across lines whenever possible 
 	int max_x = 0, max_y = 0, length = 0; //get maximum width and screen at time the function is called
 	char description[MAX_DESC], *to_print, *token ; //copy the appropriate description, to_print will be written out to the screen while token is for strtok();
 	getmaxyx(stdscr, max_y, max_x);	
 	to_print = malloc(max_x + 1); //dynamically allocate enough memory for to_print to print one line
 	if (to_print == NULL) panic();
 	strcpy(to_print, "");
-	if (player.location->been_here) {
-		strcpy(description, player.location->short_desc);
-		}
-	else {
-		strcpy(description, player.location->long_desc);
-		player.location->been_here = true;
-	}	
+	strcpy(description, to_output);	
 	token = strtok(description, " ");
 	while (token != NULL) {	
 		if (length + (strlen(token) + 1) > max_x) { //if the current length of text plus the next token and one space exceeds the width of the screen, immediately print the line to screen 
@@ -73,11 +83,17 @@ void display() { //displays the room description prior to reloading the loop() f
 }
 
 void loop() {
-		display();
-		char cmd[80];
-		getnstr(cmd, 80);
-		parse(stl(cmd));
-		if (running) {loop();}
+	char output_text[MAX_DESC];
+	if (player.location->been_here) {display(player.location->short_desc);}
+	else {
+		display(player.location->long_desc);
+		player.location->been_here = true;
+	} 
+	print_exits();		
+	char cmd[80];
+	getnstr(cmd, 80);
+	parse(stl(cmd));
+	if (running) {loop();}
 }
 
 int main() {

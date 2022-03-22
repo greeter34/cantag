@@ -8,65 +8,65 @@ void init_game() {
 	//locations
 	
 	//starting location for player
-	home.north = &north1; 
-	home.south = NULL;
-	home.east = NULL;
-	home.west = NULL;
-	home.northeast = NULL;
-	home.northwest = NULL;
-	home.southeast = NULL;
-	home.southwest = NULL;
-	home.up = NULL;
-	home.down = NULL;
-	home.been_here = false; 
-	strcpy(home.name, "Home");
-	strcpy(home.short_desc, "Your home in the game");
-	strcpy(home.long_desc, "You find yourself in a large cube closed on most sides. There is one exit to the north. This is a delibnerately long string intended to take up multiple lines of the terminal. This should wrap around to the next line of the terminal. Experiment with the player name to break a word across lines and see what happens.");
-	player.location = &home;
+	locations[0].north = &locations[1]; 
+	locations[0].south = NULL;
+	locations[0].east = NULL;
+	locations[0].west = NULL;
+	locations[0].northeast = NULL;
+	locations[0].northwest = NULL;
+	locations[0].southeast = NULL;
+	locations[0].southwest = NULL;
+	locations[0].up = NULL;
+	locations[0].down = NULL;
+	locations[0].been_here = false; 
+	strcpy(locations[0].name, "Living room");
+	strcpy(locations[0].short_desc, "The main living room of the mansion");
+	strcpy(locations[0].long_desc, "You are in a large living room, approximately four meters by five meters. Bay windows let in the sunlight from the east. A cast iron fireplace on the west end of the room is visible. You can make out engravings on the very back that depict pioneer life in days gone by. A couple of black chandeliers with light bulbs in the shape of candle flames can provide additional light by night.");
+	player.location = &locations[0];
 	
 	// 1,0,0
-	north1.north = NULL;
-	north1.south = &home;
-	north1.east = NULL;
-	north1.west = NULL;
-	north1.northeast = NULL;
-	north1.northwest = NULL;
-	north1.southeast = NULL;
-	north1.southwest = NULL;
-	north1.up = NULL;
-	north1.down = NULL;
-	north1.been_here = false; 
-	strcpy(north1.name, "North1"); //this name needs to be better
-	strcpy(north1.short_desc, "The other end of the rectangular prism");
-	strcpy(north1.long_desc, "You find yourself in a large cube closed on most sides. There is one exit to the south.");
-
-/*	//objects
-	strcpy(paint.name, "Red paint\n");
-	paint.weight = 5;
-	paint.location = &north1;
-	paint.can_move = true;
-	strcpy(paint.short_desc, "Bright red paint, perfect for painting any room.");
-	strcpy(paint.long_desc, "It looks like this paint was fabricated by the Corporation. Its fumes give you a headache. You believe it could be highly inflammable.");
-*/
+	locations[1].north = NULL;
+	locations[1].south = &locations[0];
+	locations[1].east = NULL;
+	locations[1].west = NULL;
+	locations[1].northeast = NULL;
+	locations[1].northwest = NULL;
+	locations[1].southeast = NULL;
+	locations[1].southwest = NULL;
+	locations[1].up = NULL;
+	locations[1].down = NULL;
+	locations[1].been_here = false; 
+	strcpy(locations[1].name, "Ground floor hall"); //this name needs to be better
+	strcpy(locations[1].short_desc, "You find yourself in the hallway on the ground floor of the mansion.");
+	strcpy(locations[1].long_desc, "You are in a grand hallway with an ornate wooden staircase that can take you elsehwere in the estate. A buffet table rests neatly against the wall and stained glass windows give the sunlight a more muted yet colorful effect in here. One singular bright light, surrounded in a globe like structure of uranium glass casts a greenish tint to everything here.");
 
 	//objects that the player can interact with
 
-	//paint
-	strcpy(objs[0].name, "paint");	
+	// brass key
+	strcpy(objs[0].name, "key");	
 	objs[0].weight = 10;
-	objs[0].location = &north1;
+	objs[0].location = &locations[1];
+	objs[0].id = 1;
 	objs[0].can_move = true;
-	objs[0].hidden = true;
-	strcpy(objs[0].short_desc, "Bright red paint, perfect for painting any room.");
-	strcpy(objs[0].long_desc, "It looks like this paint was fabricated by the Corporation. Its fumes give you a headache. You believe it could be highly inflammable.");	
+	objs[0].hidden = false;
+	strcpy(objs[0].short_desc, "A plain brass key");
+	strcpy(objs[0].long_desc, "This key looks ancient, like it came when they originally built this house back in 1895.");	
 
 	strcpy(objs[1].name, "coin");
 	objs[1].weight = 0;
-	objs[1].location = &north1;
+	objs[1].location = &locations[1];
+	objs[1].id = 1; //ids correspond to unique locations, so multiple items can share the same id
 	objs[1].can_move = true;
 	objs[1].hidden = false;	
 	strcpy(objs[1].short_desc, "A shiny golden colored coin.");
 	strcpy(objs[1].long_desc, "A shiny golden colored coin with Lady Liberty stamped on one side and the year 1867 on it. It is officially valued at $5 but you figure it is worth considerably more today.");
+
+	//initialize location IDs. this is for save/load game functions in files.c
+
+	int i = 0;
+	for (i = 0; i < TTL_LOCATIONS; i++) {
+		locations[i].id = i;
+	}	
 
 	return;
 }

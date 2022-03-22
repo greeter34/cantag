@@ -1,5 +1,6 @@
 #include <string.h>
 #include <ctype.h>
+#include <curses.h>
 #include "globals.h"
 
 char *stl(char *string) { //lower case an entire string
@@ -65,6 +66,18 @@ void parse(char *cmd) {
 		valid = true;	
 		print_objects(&player);
 	}
+/*	else if (!strcmp(cmd, "exits")) {
+		valid = true;
+		print_exits();
+	} currently print_exits() is called every time from the loop. this command is here in case that changes later */ 
+	else if (!strcmp(cmd, "save")) {
+		valid = true;
+		save("vfile");
+	}
+	else if (!strcmp(cmd, "load")) {
+		valid = true;
+		load("vfile");
+	}
 	
 	//two word commands go here
 
@@ -79,6 +92,24 @@ void parse(char *cmd) {
 		noun = strtok(NULL, " ");
 		use(noun);
 		valid = true;
+	}
+	if (!strcmp(cmd, "drop")) {
+		noun = strtok(NULL, " ");
+		drop(noun);
+		valid = true;
+	}
+	
+	//commands that could be one or two words
+	if (!strcmp(cmd, "examine")) {
+		noun = strtok(NULL, " ");
+		if (!noun) {
+			valid = true;
+			display(player.location->long_desc);
+		}
+		else {
+			valid = true;	
+			examine(noun);
+		}
 	}
 
 	if (!valid) {

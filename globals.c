@@ -12,9 +12,7 @@
  * location is within the game.                              */
 
 object player; //struture representing our hero
-object home; //starting location for the player
-object north1; // 1,0,0 
-object paint;
-object objs[TTL_OBJS];
+object objs[TTL_OBJS]; //array to store all objects
+object locations[TTL_LOCATIONS]; //array to store all locations
 
 bool running = true; //flag for if our game is running

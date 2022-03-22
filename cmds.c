@@ -27,8 +27,8 @@ void take(char *noun) { //let's take something shall we
 
 void use (char *noun) { //let's use something shall we
 	bool used = false;
-	if (!strcmp(noun, "paint") && (objs[0].location == &player)) {
-		printw("You spill the paint everywhere, using it up.\n");
+	if (!strcmp(noun, "key") && (objs[0].location == &player)) {
+		printw("You spill the key everywhere, using it up.\n");
 		objs[0].location = NULL;
 		used = true;
 	}
@@ -42,6 +42,33 @@ void use (char *noun) { //let's use something shall we
 	}
 	return;
 }		
+
+void drop (char *noun) { //i think we get the gist here
+	bool dropped = false;	
+	if (!strcmp(noun, "key") && (objs[0].location == &player)) {
+		objs[0].location = player.location;
+		dropped = true;	
+	}
+	if (!strcmp(noun, "coin") && (objs[1].location == &player)) {
+		objs[1].location = player.location;
+		dropped = true;
+	}
+	if (dropped) {printw("You drop your %s\n", noun);}
+	else {printw("You don't have a %s to drop\n", noun);} 
+	return;
+} 
+
+void examine (char *noun) {
+	bool examined = false;
+	if (!strcmp(noun, "key") && ((objs[0].location == &player) || (objs[0].location == player.location))) {
+		printw("%s\n", objs[0].long_desc);
+		examined = true;
+	}	
+	if (!examined) {
+		printw("%s isn't here or in your inventory to examine.\n", noun);
+	}
+	return;
+}	
 
 void unknown_cmd() { //unknown command was entered
 	printw("Unknown command entered. For help use help.\n");
