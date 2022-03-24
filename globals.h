@@ -12,7 +12,7 @@
 typedef struct objects {
 	char name[30];
 	int weight;
-	int id;	
+	short unsigned int id;	
 	struct objects *location; //set location to NULL to destroy an object
 	bool can_move;
 	bool been_here;

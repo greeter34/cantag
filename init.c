@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdbool.h>
+#include <limits.h>
 #include "globals.h"
 
 //detailed comments explaining the comments in this file can be found in globals.c
@@ -68,6 +69,8 @@ void init_game() {
 		locations[i].id = i;
 	}	
 
+	//sprites
+	player.id = USHRT_MAX;
 	return;
 }
 

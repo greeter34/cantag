@@ -16,7 +16,8 @@ void take(char *noun) { //let's take something shall we
 			printw("You have taken the object and carefully stuffed it in your inventory.\n");
 			taken = true;
 			objs[i].location = &player;	
-			objs[i].hidden = false;	
+			objs[i].hidden = false;
+			objs[i].id = player.id;	
 			break;
 		}
 	}
@@ -47,10 +48,12 @@ void drop (char *noun) { //i think we get the gist here
 	bool dropped = false;	
 	if (!strcmp(noun, "key") && (objs[0].location == &player)) {
 		objs[0].location = player.location;
+		objs[0].id = player.location->id;	
 		dropped = true;	
 	}
 	if (!strcmp(noun, "coin") && (objs[1].location == &player)) {
 		objs[1].location = player.location;
+		objs[1].id = player.location->id;	
 		dropped = true;
 	}
 	if (dropped) {printw("You drop your %s\n", noun);}
