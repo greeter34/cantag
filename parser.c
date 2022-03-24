@@ -82,20 +82,28 @@ void parse(char *cmd) {
 	//two word commands go here
 
 	char *noun = strtok(cmd, " ");	
-
 	if (!strcmp(cmd, "take")) {
 		noun = strtok(NULL, " ");	
-		take(noun);
+		if (noun) {take(noun);}
+		else {printw("Nothing was specified to be taken.\n");}	
 		valid = true;
 	}
 	if (!strcmp(cmd, "use")) {
 		noun = strtok(NULL, " ");
-		use(noun);
+		if (noun) {use(noun);}
+		else {printw("Nothing was specified to use.\n");}	
 		valid = true;
 	}
 	if (!strcmp(cmd, "drop")) {
 		noun = strtok(NULL, " ");
-		drop(noun);
+		if (noun) {drop(noun);}
+		else {printw("Nothing was specified to drop.\n");}	
+		valid = true;
+	}
+	if (!strcmp(cmd, "count")) {
+		noun = strtok(NULL, " ");
+		if (noun) {count(noun);}
+		else {printw("Nothing was specified to count.\n");}		
 		valid = true;
 	}
 	

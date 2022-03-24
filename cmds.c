@@ -73,6 +73,18 @@ void examine (char *noun) {
 	return;
 }	
 
+void count (char *noun) {
+	bool counted = false;
+	if (!strcmp(noun, "coats") && player.location == &locations[3]) {
+		printw("There are 69,105 coats hanging here.\n");
+		counted = true;
+	}
+	if (!counted) {
+		printw("I don't see any %s here to count.\n", noun);
+	}
+	return;
+} 
+
 void unknown_cmd() { //unknown command was entered
 	printw("Unknown command entered. For help use help.\n");
 	refresh();

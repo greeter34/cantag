@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #define MAX_DESC 1024 
 #define TTL_OBJS 2 
-#define TTL_LOCATIONS 2
+#define TTL_LOCATIONS 5 
 //MAX_DESC will be the maximum length of a string for the long_desc in the locations structures
 //TTL_OBJS is the total number of actual objects in the game that the player can interact with
 
@@ -11,10 +11,14 @@
 
 typedef struct objects {
 	char name[30];
-	int weight;
+
+	union { 
+		int weight;
+		bool can_move;	
+	};	
+
 	short unsigned int id;	
 	struct objects *location; //set location to NULL to destroy an object
-	bool can_move;
 	bool been_here;
 	bool hidden; //objects can remain hidden until exmaine command is used to reveal them, at which point hidden is set to false
 	char short_desc[80];
@@ -76,6 +80,7 @@ void take(char *noun);
 void use(char *noun);
 void drop(char *noun);
 void examine(char *noun);
+void count(char *noun);
 
 //init.c
 void init_game();
