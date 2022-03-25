@@ -31,7 +31,8 @@ void print_exits() {
 
 void print_objects(object *where) { //displays a list of objects for a given location, or in inventory if *where points to player
 	object *obj;
-	bool obj_flag = false, inventory = false, print = true; //is an object here? if not, no output. also are we checking inventory or a given location? also do we print the objects are here message?
+	bool obj_flag = false, inventory = false, print = true; /* is an object here? if not, no output
+	// also are we checking inventory or a given location? also do we print the objects are here message? */
 	if (obj->location == &player) inventory == true;
 	for (obj = objs; obj < objs + TTL_OBJS; obj++) {
 		if (obj->location == where && !obj->hidden) {
@@ -64,7 +65,8 @@ void display(char *to_output) { //displays the argument passed to it to the user
 	strcpy(description, to_output);	
 	token = strtok(description, " ");
 	while (token != NULL) {	
-		if (length + (strlen(token) + 2) > max_x) { //if the current length of text plus the next token and one space exceeds the width of the screen, immediately print the line to screen 
+		if (length + (strlen(token) + 2) > max_x) { 
+		//if the current length of text plus the next token and one space exceeds the width of the screen, immediately print the line to screen 
 			printw("%s\n", to_print);
 			length = strlen(token);
 			strcpy(to_print, "");
