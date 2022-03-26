@@ -24,43 +24,43 @@ void parse(char *cmd) {
 	}
 	else if ((!strcmp(cmd, "north") || (!strcmp(cmd, "n")) || (!strcmp(cmd, "go north")))) {
 		valid = true;	
-		north();
+		move_object(NORTH);	
 	}
 	else if ((!strcmp(cmd, "south") || (!strcmp(cmd, "s")) || (!strcmp(cmd, "go south")))) {
 		valid = true;	
-		south();
+		move_object(SOUTH);	
 	}
 	else if ((!strcmp(cmd, "northeast") || (!strcmp(cmd, "ne")) || (!strcmp(cmd, "go northeast")))) {
 		valid = true;	
-		northeast();
+		move_object(NORTHEAST);	
 	}
 	else if ((!strcmp(cmd, "northwest") || (!strcmp(cmd, "nw")) || (!strcmp(cmd, "go northwest")))) {
 		valid = true;	
-		northwest();
+		move_object(NORTHWEST);	
 	}
 	else if ((!strcmp(cmd, "southeast") || (!strcmp(cmd, "se")) || (!strcmp(cmd, "go southeast")))) {
 		valid = true;	
-		southeast();
+		move_object(SOUTHEAST);	
 	}
 	else if ((!strcmp(cmd, "southwest") || (!strcmp(cmd, "sw")) || (!strcmp(cmd, "go southwest")))) {
 		valid = true;	
-		southwest();
+		move_object(SOUTHWEST);	
 	}
 	else if ((!strcmp(cmd, "east") || (!strcmp(cmd, "e")) || (!strcmp(cmd, "go east")))) {
 		valid = true;	
-		east();
+		move_object(EAST);	
 	}
 	else if ((!strcmp(cmd, "west") || (!strcmp(cmd, "w")) || (!strcmp(cmd, "go west")))) {
 		valid = true;	
-		west();
+		move_object(WEST);	
 	}
 	else if ((!strcmp(cmd, "up") || (!strcmp(cmd, "u")) || (!strcmp(cmd, "go up")))) {
 		valid = true;	
-		up();
+		move_object(UP);	
 	}
 	else if ((!strcmp(cmd, "down") || (!strcmp(cmd, "d")) || (!strcmp(cmd, "go down")))) {
 		valid = true;	
-		down();
+		move_object(DOWN);	
 	}
 	else if ((!strcmp(cmd, "inventory") || (!strcmp(cmd, "i")))) {
 		valid = true;	

@@ -9,6 +9,8 @@
 
 //type definitions for structures go here. global variables go in globals.c
 
+enum dir {NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, UP, DOWN};
+
 typedef struct objects {
 	char name[30];
 
@@ -66,16 +68,7 @@ void print_exits();
 void unknown_cmd();
 void help();
 void quit();
-void north();
-void south();
-void east();
-void west();
-void northeast();
-void northwest();
-void southeast();
-void southwest();
-void up();
-void down();
+void move_object(int direction);
 void take(char *noun);
 void use(char *noun);
 void drop(char *noun);
