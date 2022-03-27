@@ -40,6 +40,7 @@ void init_game() {
 	locations[1].east = &locations[2]; //vestibule
 	locations[1].west = &locations[3]; //back hall
 	locations[1].northwest = &locations[4]; //dining room
+	locations[1].up = &locations[12]; //west wing hall
 	strcpy(locations[1].name, "Ground floor hall"); //this name needs to be better
 	strcpy(locations[1].short_desc, "You find yourself in the hallway on the ground floor of the mansion.");
 	strcpy(locations[1].long_desc, "You are in a grand hallway with an ornate wooden staircase that can take you "
@@ -58,6 +59,7 @@ void init_game() {
 	//Back hall 
 	locations[3].east = &locations[1]; //ground floor hall
 	locations[3].west = &locations[6]; //kitchen
+	locations[3].up = &locations[11]; //east wing hall	
 	strcpy(locations[3].name, "Back hall");
 	strcpy(locations[3].short_desc, "The back hallway of the old mansion");
 	strcpy(locations[3].long_desc, "You are in the back hallway of the mansion. A single ceiling light with three bulbs "
@@ -88,6 +90,8 @@ void init_game() {
 	// Kitchen
 	locations[6].north = &locations[5]; //pantry
 	locations[6].east = &locations[3]; //back hall
+	locations[6].northwest = &locations[8]; //back vestibule
+	locations[6].northeast = &locations[10]; //food closet	
 	strcpy(locations[6].name, "Kitchen");
 	strcpy(locations[6].short_desc, "The kitchen, complete with many amenities but oddly devoid of cupboards.");
 	strcpy(locations[6].long_desc, "The kitchen of the estate. A few small counters dot the otherwise large kitchen. One huge "
@@ -102,6 +106,123 @@ void init_game() {
 		"feet. You can see the estate next door through the south facing window. It isn't nearly as big as the one you're "
 		"in right now however. The lighting mixed with the purple walls gives an odd sense of dreariness that you don't "
 		"experience anywhere else in this mansion.");
+
+	//Back vestibule
+	locations[8].south = &locations[6]; //kitchen
+	locations[8].north = &locations[9]; //ground floor restroom	
+	strcpy(locations[8].name, "Back vestibule");
+	strcpy(locations[8].short_desc, "The back vestibule, leading to the garage, kitchen, or ground floor restroom");
+	strcpy(locations[8].long_desc, "The back vestibule has smaller floor tiles here, as well as a washing machine. There is also a "
+		"laundry chute that comes down from one of the second floor bedrooms. Plastic panels diffuse the overhead fluorescent "
+		"light and turn it into a gentler glow.");
+
+	//Ground floor restroom
+	locations[9].south = &locations[8]; //back vestibule
+	strcpy(locations[9].name, "Ground floor restroom");
+	strcpy(locations[9].short_desc, "The ground floor restroom, with an odd greenish pattern on the walls.");
+	strcpy(locations[9].long_desc, "You find yourself in the ground floor restroom. An antique claw foot tub is here, along with "
+		"a very old sink. The faucets are fused in place and no longer open. The same plastic paneling in the vestibule "
+		"also adorns the ceiling here. A tiny window by the ceiling, too high up to see through, also lets in the gentle "
+		"light of the afternoon sun.");
+
+	//Food closet
+	locations[10].southwest = &locations[6]; //kitchen
+	strcpy(locations[10].name, "Food closet");
+	strcpy(locations[10].short_desc, "You are in the rather dark food closet.");
+	strcpy(locations[10].long_desc, "This old food closet has barely enough room for you to stand in it. You remember as a "
+		"child being able to climb the shelves from the ground all the way to the top. All sorts of cans and boxes of "
+		"food line the shelves here. There's enough food to ensure that you won't go hungry for several months.");
+
+	//West wing hall
+	locations[11].east = &locations[12]; //east wing hall	
+	locations[11].down = &locations[3]; //back hall
+	strcpy(locations[11].name, "West wing hall");
+	strcpy(locations[11].short_desc, "You are in the western half of the second floor.");
+	strcpy(locations[11].long_desc, "The western half of the second floor has one lonely ceiling fixture with three light "
+		"bulbs. A wall sconce also hangs by the staircase. You used to twist the wall sconce to the left as a child "
+		"to pretend that it would unlock secret passageways elsewhere on the estate. Hardwood floors appear througout "
+		"the halls. Two of the estate's six bedrooms are located here.");
+
+	//East wing hall
+	locations[12].west = &locations[11]; //west wing hall
+	locations[12].down = &locations[1]; //ground floor hall
+	locations[12].northwest = &locations[13]; //master bedroom
+	locations[12].east = &locations[14]; //pink bedroom
+	locations[12].southeast = &locations[16]; //front bedroom
+	locations[12].south = &locations[18]; //side bedroom	
+	strcpy(locations[12].name, "East wing hall");
+	strcpy(locations[12].short_desc, "You are in the eastern half of the second floor.");
+	strcpy(locations[12].long_desc, "The western half of the second floor has far more indoor lighting than the eastern "
+		"half, with a wall sconce and a ceiling fan that houses several light bulbs. Stained glass windows on the "
+		"down staircase also let in copious amounts of light. A balcony type area overlooks the ground floor hallway "
+		"and triggers your fear of heights ever so slightly. Four of the estate's six bedrooms are located here.");
+
+	//Master bedroom	
+	locations[13].southeast = &locations[12]; //east wing hall
+	strcpy(locations[13].name, "Master bedroom");
+	strcpy(locations[13].short_desc, "You are in the master bedroom, spacious and luxurious.");
+	strcpy(locations[13].long_desc, "This is the master bedroom. Two huge windows look out over the side yard to the north "
+		"and let in a surpising amount of afternoon sunlight. You can see the trees blowing in the wind and faintly make "
+		"out the neighboring apartment building. A king sized bed, carved out of ebony, sits against the west wall. It "
+		"looks so comfortable you could almost take a nap in it right now. A wooden dresser rests against the east wall "
+		"opposite, a large antique mirror sitting on top. Oddly, unlike most of the other bedrooms, this one lacks a "
+		"closet of any type.");
+
+	//Pink bedroom
+	locations[14].west = &locations[12]; //east wing hall
+	locations[14].northwest = &locations[15]; //pink bedroom closet
+	strcpy(locations[14].name, "Pink bedroom");	
+	strcpy(locations[14].short_desc, "You are in the pink bedroom.");
+	strcpy(locations[14].long_desc, "You stand in the pink bedroom. An odd light fixture that looks to be carved out of plaster "
+		"houses two lights. Old style pull down blinds can be found at the top of the windows. You can see far to the east "
+		"being at the top of the hill, with much of the town visible in the distance. You also get a north view out two "
+		"tiny windows, allowing you to see the next door apartment building. Pink flowers adorn the walls and a wooden "
+		"bed painted pink can be found in this room, along with a matching pink dresser with oval beveled mirror. You "
+		"imagine that this must have been your aunt's bedroom when she was a little girl.");
+
+	//Pink bedroom closet
+	locations[15].southeast = &locations[14]; //pink bedroom
+	strcpy(locations[15].name, "Pink bedroom closet");	
+	strcpy(locations[15].short_desc, "The pink bedroom's walk in closet");
+	strcpy(locations[15].long_desc, "You stumble your way into the walk in closet. Devoid of windows or lights, it is hard to "
+		"see anything in here. You used to hide out in here when you were younger as nobody would go looking for you here.");
+
+	//Front bedroom
+	locations[16].northwest = &locations[12]; //east wing hall
+	locations[16].south = &locations[17]; //front bedroom closet
+	strcpy(locations[16].name, "Front bedroom");	
+	strcpy(locations[16].short_desc, "You are in the front bedroom.");
+	strcpy(locations[16].long_desc, "You are in the front bedroom, although it is currently not used as a bedroom. Various "
+		"machinery used for engraving metals can be found here. The only semblance of this being a bedroom is that this "
+		"room has a closet to the south. You aren't sure how any of the engraving equipment works, only that your uncle "
+		"does much of his work here on a freelance basis.");
+
+	//Front bedroom closet
+	locations[17].north = &locations[16]; //front bedroom
+	strcpy(locations[17].name, "Front bedroom closet");	
+	strcpy(locations[17].short_desc, "You are in the front bedroom closet");
+	strcpy(locations[17].long_desc, "You are in the front bedroom closet. This one is unique among all the walk in closets "
+		"for several reasons. It has a large window in the wall facing south towards the retirement home next door. It "
+		"also has a loveseat built into the wall in case you wanted to sit down. You feel like this may have been "
+		"renovated at some time in the past, resulting in it's present appearance."); 		 
+	
+	//Side bedroom
+	locations[18].north = &locations[12]; //east wing hall
+	locations[18].east = &locations[19]; //side bedroom closet	
+	strcpy(locations[18].name, "Side bedroom");	
+	strcpy(locations[18].short_desc, "You are in the side bedroom");
+	strcpy(locations[18].long_desc, "This bedroom has a waterbed that is very comfortable to sleep in, and difficult to escape "
+		"from when you're done. It also has an odd patchwork like carpet underneath of it that is only slightly larger than "
+		"the footprint of the bed. It's very colorful, with lots of reds and blues in it. A brass light fixture lights the "
+		"room, supporting two rods with a light bulb on each end. A poster of our planet as viewed from space hangs on the "
+		"east wall.");
+
+	//Side bedroom closet
+	locations[19].west = &locations[18]; //side bedroom
+	strcpy(locations[19].name, "Side bedroom closet");
+	strcpy(locations[19].short_desc, "This is the side bedroom closet");
+	strcpy(locations[19].long_desc, "This walk in closet is the darkest. You can barely see anything in here at all. You fumble "
+		"around in the darkness and can feel some old clothing, as well as some shoes on the ground.");	
 
 	//objects that the player can interact with
 
