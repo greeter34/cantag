@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #define MAX_DESC 1024 
 #define TTL_OBJS 2 
-#define TTL_LOCATIONS 20 
+#define TTL_LOCATIONS 32 
 //MAX_DESC will be the maximum length of a string for the long_desc in the locations structures
 //TTL_OBJS is the total number of actual objects in the game that the player can interact with
 
@@ -63,6 +63,7 @@ void loop();
 void display(char *to_output);
 void print_objects(object *where);
 void print_exits();
+void panic();
 
 //cmds.c
 void unknown_cmd();
@@ -79,8 +80,8 @@ void count(char *noun);
 void init_game();
 
 //files.c
-void save(char *destination);
-char *prompt();
-void load(char *destination);
+void save();
+void prompt();
+void load();
 
 #endif

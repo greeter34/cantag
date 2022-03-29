@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <curses.h>
 #include <limits.h>
@@ -22,11 +23,12 @@ struct by_lightning { //temporary basic object, global to this file only (not us
 	bool hidden;
 } temp_object;
 
-char *prompt() { //call this to query the user for a save or load file location
-	static char path[100];	
+char path[100]; //file path needs only to be accessible in this file
+
+void prompt() { //call this to query the user for a save or load file location
 	printw("Please enter a file name\nNote: Name can be relative or an absolute path\n");
 	getnstr(path, 100);
-	return path;
+	return;
 }
 
 void restore(struct objects *temporary, int i) {
@@ -35,67 +37,68 @@ void restore(struct objects *temporary, int i) {
 	return;
 }	
 
-void save(char *destination) {
-	FILE *savefile = fopen(destination, "wb");
+void save() {
+	prompt();
+	FILE *savefile = fopen(path, "wb");
 	int i = 0;
+	bool failed = false; //assume success until confirmed otherwise
 	if (savefile == NULL) {
-		printw("File is NULL\n");
+		failed = true;	
+		printw("Cannot open %s: File is NULL\nPlease specify another file path. This may be caused by a permissions issue.\nOtherwise, you may be out of disk space.\n\n");
 	}
 
-	for (i = 0; i < TTL_OBJS; i++) { //save objects first
-		temp_object.id = objs[i].id;
-		temp_object.hidden = objs[i].hidden;
+	if (!failed) {
+		for (i = 0; i < TTL_OBJS; i++) { //save objects first
+			temp_object.id = objs[i].id;
+			temp_object.hidden = objs[i].hidden;
+			fwrite(&temp_object, sizeof(temp_object), 1, savefile);
+		}	
+		for (i = 0; i < TTL_LOCATIONS; i++) { //save locations next
+			temp_object.id = locations[i].id;
+			temp_object.been_here = objs[i].been_here;
+			fwrite(&temp_object, sizeof(temp_object), 1, savefile);
+		}
+
+		strcpy(temp_object.name, player.name);
+		temp_object.id = player.location->id;
 		fwrite(&temp_object, sizeof(temp_object), 1, savefile);
+		//loop can go here for sprites when needed
+
+		fclose(savefile);
 	}	
-	for (i = 0; i < TTL_LOCATIONS; i++) { //save locations next
-		temp_object.id = locations[i].id;
-		temp_object.been_here = objs[i].been_here;
-		fwrite(&temp_object, sizeof(temp_object), 1, savefile);
-	}
-
-	strcpy(temp_object.name, player.name);
-	temp_object.id = player.location->id;
-	printw("Player saved to location %d\n", temp_object.id);	
-	fwrite(&temp_object, sizeof(temp_object), 1, savefile);
-	//loop can go here for sprites when needed
-
-	//fwrite(&objs, sizeof(objs), 1, savefile);
-	//fwrite(&player, sizeof(player), 1, savefile);	
-
-
-	fclose(savefile);
 	return;
 }
 
-void load(char *destination) { //this function is incomplete
-	FILE *loadfile = fopen(destination, "rb");
+void load() { //this function is incomplete
+	prompt();
+	FILE *loadfile = fopen(path, "rb");
 	int i = 0;	
+	bool failed = false; //assume success until confirmed otherwise
 	if (loadfile == NULL) {
-		printw("File is NULL\n");
+		failed = true;	
+		printw("Could not open %s: File is NULL\n", path);
+		refresh();
    	}
 
-	for (i = 0; i < TTL_OBJS; i++) {
+	if (!failed) {
+		for (i = 0; i < TTL_OBJS; i++) {
+			fread(&temp_object, sizeof(temp_object), 1, loadfile);
+			objs[i].id = temp_object.id;
+			objs[i].hidden = temp_object.hidden;
+			restore(objs, i);
+		}
+		for (i = 0; i < TTL_LOCATIONS; i++) {
+			fread(&temp_object, sizeof(temp_object), 1, loadfile);
+			locations[i].id = temp_object.id;
+			locations[i].been_here = temp_object.been_here;
+			//restore(locations, i);
+		}
+
 		fread(&temp_object, sizeof(temp_object), 1, loadfile);
-		objs[i].id = temp_object.id;
-		objs[i].hidden = temp_object.hidden;
-		restore(objs, i);
+		strcpy(player.name, temp_object.name);
+		player.location->id = temp_object.id;
+		player.location = &locations[player.location->id];	
+		fclose(loadfile);	
 	}
-	for (i = 0; i < TTL_LOCATIONS; i++) {
-		fread(&temp_object, sizeof(temp_object), 1, loadfile);
-		locations[i].id = temp_object.id;
-		locations[i].been_here = temp_object.been_here;
-		//restore(locations, i);
-	}
-
-	fread(&temp_object, sizeof(temp_object), 1, loadfile);
-	strcpy(player.name, temp_object.name);
-	player.location->id = temp_object.id;
-	player.location = &locations[player.location->id];	
-
-	//fread(&objs, sizeof(objs), 1, loadfile);
-	//fread(&player, sizeof(player), 1, loadfile);	
-	
-
-	fclose(loadfile);	
 	return;
 }

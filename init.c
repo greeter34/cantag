@@ -57,6 +57,7 @@ void init_game() {
 		"light. An old name plate on the door bears the name of your grandfather, the man who bought this house many years ago.");	
 
 	//Back hall 
+	locations[3].south = &locations[7]; //side door
 	locations[3].east = &locations[1]; //ground floor hall
 	locations[3].west = &locations[6]; //kitchen
 	locations[3].up = &locations[11]; //east wing hall	
@@ -100,6 +101,7 @@ void init_game() {
 
 	//Side door
 	locations[7].north = &locations[3]; //back hall
+	locations[7].down = &locations[27]; //Basement stairs landing
 	strcpy(locations[7].name, "Side door");
 	strcpy(locations[7].short_desc, "You arrive at the side door, and are standing on an ornate iron grate.");
 	strcpy(locations[7].long_desc, "You're at the side door of the house. An iron grate with an intricate pattern is below your "
@@ -110,6 +112,7 @@ void init_game() {
 	//Back vestibule
 	locations[8].south = &locations[6]; //kitchen
 	locations[8].north = &locations[9]; //ground floor restroom	
+	locations[8].west = &locations[31]; //garage	
 	strcpy(locations[8].name, "Back vestibule");
 	strcpy(locations[8].short_desc, "The back vestibule, leading to the garage, kitchen, or ground floor restroom");
 	strcpy(locations[8].long_desc, "The back vestibule has smaller floor tiles here, as well as a washing machine. There is also a "
@@ -135,7 +138,11 @@ void init_game() {
 
 	//West wing hall
 	locations[11].east = &locations[12]; //east wing hall	
+	locations[11].north = &locations[23]; //second floor restroom
+	locations[11].west = &locations[20]; //twin bedroom
+	locations[11].northwest = &locations[22]; //spare bedroom
 	locations[11].down = &locations[3]; //back hall
+	locations[11].up = &locations[24]; //main attic entryway
 	strcpy(locations[11].name, "West wing hall");
 	strcpy(locations[11].short_desc, "You are in the western half of the second floor.");
 	strcpy(locations[11].long_desc, "The western half of the second floor has one lonely ceiling fixture with three light "
@@ -193,8 +200,8 @@ void init_game() {
 	strcpy(locations[16].name, "Front bedroom");	
 	strcpy(locations[16].short_desc, "You are in the front bedroom.");
 	strcpy(locations[16].long_desc, "You are in the front bedroom, although it is currently not used as a bedroom. Various "
-		"machinery used for engraving metals can be found here. The only semblance of this being a bedroom is that this "
-		"room has a closet to the south. You aren't sure how any of the engraving equipment works, only that your uncle "
+		"machinery used for building and repairing shoes can be found here. The only semblance of this being a bedroom is that this "
+		"room has a closet to the south. You aren't sure how any of the shoe making equipment works, only that your grandfather "
 		"does much of his work here on a freelance basis.");
 
 	//Front bedroom closet
@@ -224,24 +231,127 @@ void init_game() {
 	strcpy(locations[19].long_desc, "This walk in closet is the darkest. You can barely see anything in here at all. You fumble "
 		"around in the darkness and can feel some old clothing, as well as some shoes on the ground.");	
 
+	//Twin bedroom
+	locations[20].east = &locations[11]; //West wing hall
+	locations[20].south = &locations[21]; //Twin bedroom closet
+	strcpy(locations[20].name, "Twin bedroom");
+	strcpy(locations[20].short_desc, "This is the twin bedroom");
+	strcpy(locations[20].long_desc, "You are in the twin bedroom, so called because two old fashioned twin beds are here. One large "
+		"window provides an excellent view of the retirement home next door. Brown flowers on a white background can be seen on "
+		"the wallpaper in this room. This is the only room with wall to wall carpeting, the carpet being an orange-brown color "
+		"that looks like it came out of the sixties.");
+
+	//Twin bedroom closet
+	locations[21].north = &locations[20];
+	strcpy(locations[21].name, "Twin bedroom closet");
+	strcpy(locations[21].short_desc, "This is the twin bedroom closet");
+	strcpy(locations[21].long_desc, "This is the walk in closet for the twin bedroom. Although it is one of the smallest bedrooms, "
+		"it has the largest closet, and the only one with a light. You can clearly see the shelves lined with every issue of "
+		"Popular Science dating back to 1950. The hardwood floor here is oddly painted, a color reminiscent of melted vanilla "
+		"ice cream with a hint of chocolate sauce mixed in.");
+	
+	//Spare bedroom
+	locations[22].southeast = &locations[11]; //West wing hall
+	locations[22].down = &locations[8]; //Back vestibule. In reality this trip would be dangerous, but wanted to code a one way trip as an example
+	strcpy(locations[22].name, "Spare bedroom");
+	strcpy(locations[22].short_desc, "This is the spare bedroom");
+	strcpy(locations[22].long_desc, "This spare bedroom has been converted into a storage room. Everything is neatly organized along "
+		"shelves on the wall, and you can clearly see the trees separating the back yard from the rest of the town through the "
+		"window. There is also an in floor laundry chute to quickly get clothing downstairs to be washed.");
+
+	//Second floor restroom
+	locations[23].south = &locations[11]; //West wing hall
+	strcpy(locations[23].name, "Second floor restroom");
+	strcpy(locations[23].short_desc, "This is the second floor restroom");
+	strcpy(locations[23].long_desc, "The second floor restroom has two antique wall sconces showing the room in a pleasant glow, as well "
+		"a large north facing window to let in additional sunlight. There is also an antique beveled mirror hanging above the sink.");
+	
+	//Main attic entryway
+	locations[24].down = &locations[11]; //Main attic entryway
+	locations[24].southeast = &locations[25];
+	locations[24].east = &locations[26];
+	strcpy(locations[24].name, "Main attic entryway");
+	strcpy(locations[24].short_desc, "This is the main attic entryway");
+	strcpy(locations[24].long_desc, "You find yourself at the top of the semi-spiral staircase that takes you into the attic. This area "
+		"is seldom used, and years of dust has accumulated in the area. It is also dark and cold, as tall ceilings let all the heat "
+		"escape and there is no lighting up here. An old television antenna sits in the center of the room.");
+
+	//Attic side room
+	locations[25].northwest = &locations[24]; //main attic entryway
+	strcpy(locations[25].name, "Attic side room");
+	strcpy(locations[25].short_desc, "A side room in the attic which could make a neat bedroom");
+	strcpy(locations[25].long_desc, "You are in a side room in the attic. A single large south facing window lets in incredible amounts "
+		"of light. The ceiling is sloped in this room and it feels oddly comfortable to be in here. Older looking, less finished "
+		"hardwood floors can be found here.");
+
+	//Attic main room
+	locations[26].west = &locations[24]; //main attic entryway
+	strcpy(locations[26].name, "Attic main room");
+	strcpy(locations[26].short_desc, "The main room of the attic");
+	strcpy(locations[26].long_desc, "This is the main room of the attic. Pink fiberglass insulation lines the floors here. Silver colored "
+		"tubing about one foot in diameter helps carry hot or cold air to other parts of the house. A half moon shaped window provides "
+		"the best view of the town to the east. You can see almost all the way to the high school from here.");	
+	
+	//Basement stairs landing
+	locations[27].up = &locations[7]; //side door
+	locations[27].west = &locations[28]; //furnace room
+	locations[27].east = &locations[29]; //firewood room
+	strcpy(locations[27].name, "Basement stairs landing");
+	strcpy(locations[27].short_desc, "The bottom of the basement stairs");
+	strcpy(locations[27].long_desc, "You've descended the stairs into the very large basement. Many ceiling lights ensure that you never "
+		"find yourself in the dark down here. You hear running water to the west. There is a slight musty smell down here, as well as "
+		"a strong scent of wood. While this area would make a great storage space, very little is actually stored down here.");
+
+	//Furnace room
+	locations[28].east = &locations[27]; //Basement stairs landing
+	strcpy(locations[28].name, "Furnace room");
+	strcpy(locations[28].short_desc, "You are in the furnace room");
+	strcpy(locations[28].long_desc, "This is where the furnace is kept. All manners of pipes and ductwork flow into and out of this room. "
+		"You also observe that a tiny stream is running through this room. There is a slight sulfurous smell in this room that seems "
+		"to be coming from the water.");
+
+	//Firewood room
+	locations[29].west = &locations[27]; //Basement stairs landing
+	locations[29].south = &locations[30]; //basement room 
+	strcpy(locations[29].name, "Firewood room");
+	strcpy(locations[29].short_desc, "This room is where the firewood is kept");
+	strcpy(locations[29].long_desc, "This room has firewood piled up against two of the walls. You feel like there's enough firewood here "
+		"to last for a year, although you've only ever seen your family use any over the Christmas holidays.");
+
+	//Basement room
+	locations[30].north = &locations[29]; //Firewood room
+	strcpy(locations[30].name, "Basement room");
+	strcpy(locations[30].short_desc, "This small basement room has various cans of solvents, thinners, and fuels, most of which are empty. "
+		"It almost feels like this room was used for automotive repair, although there would have been no way to get a vehicle down here. "
+		"A tiny dirty window to the east only shows the base of one of the lilac trees on the estate grounds."); 	
+
+	//garage
+	locations[31].east = &locations[8]; //back vestibule
+	strcpy(locations[31].name, "Garage");
+	strcpy(locations[31].short_desc, "The garage, which currently has no vehicles in it.");
+	strcpy(locations[31].long_desc, "This is the garage. While there are currently no vehicles in it, there is a freezer in the corner. There "
+		"is also a tobagan hanging from the ceiling, however it is out of reach, and you would have no use for it in the summer anyway. "
+		"The wooden floors are another peculiarity. They are starting to show their age and they bend and dip down whenever you step on "
+		"them. You feel that they could benefit from replacement very soon.");
+
 	//objects that the player can interact with
 
 	// brass key
-	strcpy(objs[0].name, "key");	
+	strcpy(objs[0].name, "radio");	
 	objs[0].weight = 10;
-	objs[0].location = &locations[1];
-	objs[0].id = 1;
+	objs[0].location = &locations[23];
+	objs[0].id = 23;
 	objs[0].hidden = false;
-	strcpy(objs[0].short_desc, "A plain brass key");
-	strcpy(objs[0].long_desc, "This key looks ancient, like it came when they originally built this house back in 1895.");	
+	strcpy(objs[0].short_desc, "An old radio that's been in the second floor restroom for many years");
+	strcpy(objs[0].long_desc, "An old style radio that's been in your family for over 30 years. It is missing its batteries.");	
 
-	strcpy(objs[1].name, "coin");
-	objs[1].weight = 0;
-	objs[1].location = &locations[1];
-	objs[1].id = 1; //ids correspond to unique locations, so multiple items can share the same id
+	strcpy(objs[1].name, "batteries");
+	objs[1].weight = 10;
+	objs[1].location = &locations[30];
+	objs[1].id = 30; //ids correspond to unique locations, so multiple items can share the same id
 	objs[1].hidden = false;	
-	strcpy(objs[1].short_desc, "A shiny golden colored coin.");
-	strcpy(objs[1].long_desc, "A shiny golden colored coin with Lady Liberty stamped on one side and the year 1867 on it. It is officially valued at $5 but you figure it is worth considerably more today.");
+	strcpy(objs[1].short_desc, "A simple battery pack");
+	strcpy(objs[1].long_desc, "A battery pack that looks like it might fit into an electronic device.");
 
 	//initialize location IDs. this is for save/load game functions in files.c
 
