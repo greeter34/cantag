@@ -12,7 +12,7 @@ void take(char *noun) { //let's take something shall we
 	int i = 0; //our iterator
 	bool taken = false; //flag for if an object has been taken yet or not 
 	for (i = 0; i != TTL_OBJS; i++) { //set up a loop to check each object against the input provided by the user
-		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location)) {
+		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location) && (objs[i].can_move)) {
 			printw("You have taken the object and carefully stuffed it in your inventory.\n");
 			taken = true;
 			objs[i].location = &player;	
@@ -20,6 +20,11 @@ void take(char *noun) { //let's take something shall we
 			objs[i].id = player.id;	
 			break;
 		}
+		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location) && (!objs[i].can_move)) {
+			printw("You cannot take %s.\n", objs[i].name);
+			taken = true;
+			break;
+		}	
 	}
 	if (!taken) {printw("There is no item here called %s\n", noun);} 
 	refresh();
@@ -28,11 +33,6 @@ void take(char *noun) { //let's take something shall we
 
 void use (char *noun) { //let's use something shall we
 	bool used = false;
-	if (!strcmp(noun, "key") && (objs[0].location == &player)) {
-		printw("You spill the key everywhere, using it up.\n");
-		objs[0].location = NULL;
-		used = true;
-	}
 	if (!strcmp(noun, "coin") && (objs[1].location == &player)) {
 		printw("You spend your coin.\n");
 		objs[1].location = NULL;
@@ -63,9 +63,13 @@ void drop (char *noun) { //i think we get the gist here
 
 void examine (char *noun) {
 	bool examined = false;
-	if (!strcmp(noun, "key") && ((objs[0].location == &player) || (objs[0].location == player.location))) {
-		printw("%s\n", objs[0].long_desc);
-		examined = true;
+	int i = 0;
+	for (i = 0; i < TTL_OBJS; i++) {
+		if (!strcmp(noun, objs[i].name) && (objs[i].location == &player) || (objs[i].location == player.location)) {
+			printw("%s\n", objs[i].short_desc);
+			examined = true;
+			break;
+		}
 	}	
 	if (!examined) {
 		printw("%s isn't here or in your inventory to examine.\n", noun);

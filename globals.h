@@ -2,7 +2,7 @@
 #define GLOBALS
 #include <stdbool.h>
 #define MAX_DESC 1024 
-#define TTL_OBJS 2 
+#define TTL_OBJS 4 
 #define TTL_LOCATIONS 32 
 //MAX_DESC will be the maximum length of a string for the long_desc in the locations structures
 //TTL_OBJS is the total number of actual objects in the game that the player can interact with

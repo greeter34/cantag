@@ -35,7 +35,7 @@ void print_objects(object *where) { //displays a list of objects for a given loc
 	// also are we checking inventory or a given location? also do we print the objects are here message? */
 	if (obj->location == &player) inventory == true;
 	for (obj = objs; obj < objs + TTL_OBJS; obj++) {
-		if (obj->location == where && !obj->hidden) {
+		if (obj->location == where && !obj->hidden && obj->can_move) {
 			if (!obj_flag && !inventory && print) {
 				printw("Objects that are here:\n\n");
 				obj_flag = true;

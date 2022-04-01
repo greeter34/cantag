@@ -23,6 +23,10 @@ void init_game() {
 		locations[i].down = NULL;
 		locations[i].id = i;
 		locations[i].been_here = false; //we have not been anywhere in the game when this function is called 
+		if (i < TTL_OBJS) {
+			objs[i].hidden = false;	
+			objs[i].can_move = false;
+		}	
 	}
 	
 	//Living room, starting location for player 
@@ -336,24 +340,35 @@ void init_game() {
 
 	//objects that the player can interact with
 
-	// brass key
+	// radio
 	strcpy(objs[0].name, "radio");	
 	objs[0].weight = 10;
 	objs[0].location = &locations[23];
 	objs[0].id = 23;
-	objs[0].hidden = false;
 	strcpy(objs[0].short_desc, "An old radio that's been in the second floor restroom for many years");
 	strcpy(objs[0].long_desc, "An old style radio that's been in your family for over 30 years. It is missing its batteries.");	
 
+	//batteries
 	strcpy(objs[1].name, "batteries");
 	objs[1].weight = 10;
 	objs[1].location = &locations[30];
 	objs[1].id = 30; //ids correspond to unique locations, so multiple items can share the same id
-	objs[1].hidden = false;	
 	strcpy(objs[1].short_desc, "A simple battery pack");
 	strcpy(objs[1].long_desc, "A battery pack that looks like it might fit into an electronic device.");
 
-	//initialize location IDs. this is for save/load game functions in files.c
+	//dining room couch
+	strcpy(objs[2].name, "couch");
+	objs[2].can_move = false;
+	objs[2].location = &locations[4]; //dining room
+	objs[2].id = 4;
+	strcpy(objs[2].short_desc, "An old couch upholstered in coarse purple fabric. A floral pattern can be faintly made out in it");
+	
+	//buffet table
+	strcpy(objs[3].name, "buffet");
+	objs[3].can_move = false;
+	objs[3].location = &locations[1]; //ground floor hall 
+	objs[3].id = 1;
+	strcpy(objs[3].short_desc, "An old wooden buffet table. It's been in your family for many years.");	
 
 	//sprites
 	player.id = USHRT_MAX;
