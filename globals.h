@@ -40,9 +40,6 @@ typedef struct objects {
  
 extern bool running;
 extern object player;
-extern object home;
-extern object north1;
-extern object paint;
 extern object objs[TTL_OBJS];
 extern object locations[TTL_LOCATIONS];
 
@@ -81,7 +78,7 @@ void init_game();
 
 //files.c
 void save();
-void prompt();
+char *prompt();
 void load();
 
 #endif

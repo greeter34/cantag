@@ -72,11 +72,11 @@ void parse(char *cmd) {
 	} currently print_exits() is called every time from the loop. this command is here in case that changes later */ 
 	else if (!strcmp(cmd, "save")) {
 		valid = true;
-		save();
+		save(prompt());
 	}
 	else if (!strcmp(cmd, "load")) {
 		valid = true;
-		load();
+		load(prompt());
 	}
 	
 	//two word commands go here
@@ -118,6 +118,11 @@ void parse(char *cmd) {
 			valid = true;	
 			examine(noun);
 		}
+	}
+
+	//debugging commands
+	if (!strcmp(cmd, "panic")) {
+		panic();
 	}
 
 	if (!valid) {

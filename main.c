@@ -1,15 +1,25 @@
 #include <curses.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "globals.h"
 
 void panic() { //this function is called for more severe problems, like if we have a call to malloc() fail
 	endwin();
-	//call the save game function here once it exists
+	srand(time(0));	
+	int i = 0;
+	char list[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	char filename[21];
+	for (i = 0; i < 15; i++) {
+		filename[i] = list[rand() % 52]; 
+	}
+	filename[i] = '\0';	
+	save(filename);	
 	printf("Error: This program has experienced an unrecoverable error and must close now.\n");
 	printf("An attempt to save your game was made. There is no guarantee that this attempt\n");
 	printf("succeeded. We recommend checking for a save file and restarting your machine\n");
 	printf("before running your game again. Thank you.\n");
+	printf("Save attempted to this file:\n%s\n", filename);
 	exit(EXIT_FAILURE);
 }
 

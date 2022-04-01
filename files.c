@@ -23,12 +23,11 @@ struct by_lightning { //temporary basic object, global to this file only (not us
 	bool hidden;
 } temp_object;
 
-char path[100]; //file path needs only to be accessible in this file
-
-void prompt() { //call this to query the user for a save or load file location
+char *prompt() { //call this to query the user for a save or load file location
+	static char path[100];
 	printw("Please enter a file name\nNote: Name can be relative or an absolute path\n");
 	getnstr(path, 100);
-	return;
+	return path;
 }
 
 void restore(struct objects *temporary, int i) {
@@ -37,9 +36,8 @@ void restore(struct objects *temporary, int i) {
 	return;
 }	
 
-void save() {
-	prompt();
-	FILE *savefile = fopen(path, "wb");
+void save(char *destination) {
+	FILE *savefile = fopen(destination, "wb");
 	int i = 0;
 	bool failed = false; //assume success until confirmed otherwise
 	if (savefile == NULL) {
@@ -69,14 +67,13 @@ void save() {
 	return;
 }
 
-void load() { //this function is incomplete
-	prompt();
-	FILE *loadfile = fopen(path, "rb");
+void load(char *destination) { //this function is incomplete
+	FILE *loadfile = fopen(destination, "rb");
 	int i = 0;	
 	bool failed = false; //assume success until confirmed otherwise
 	if (loadfile == NULL) {
 		failed = true;	
-		printw("Could not open %s: File is NULL\n", path);
+		printw("Could not open %s: File is NULL\n", destination);
 		refresh();
    	}
 
