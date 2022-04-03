@@ -3,8 +3,14 @@
 #include "globals.h"
 
 void help() { //print out help. this will be made context specific
-	printw("This is the help function.\n");
+	printw("The following commands are available:\n");	
+	print_exits();
+	printw("Commands that are always available:\ninventory\nexamine\nhelp\nload\nsave\nquit\n\n");
+	printw("Commands that may be available (requires an object to act on):\ntake\nuse\ndrop\ncount\n\n");
+	printw("Press any key to continue...");
+	getch();	
 	refresh();
+	printw("\n\n");	
 	return;
 }
 
@@ -12,7 +18,7 @@ void take(char *noun) { //let's take something shall we
 	int i = 0; //our iterator
 	bool taken = false; //flag for if an object has been taken yet or not 
 	for (i = 0; i != TTL_OBJS; i++) { //set up a loop to check each object against the input provided by the user
-		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location) && (objs[i].can_move)) {
+		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location) && (objs[i].weight != 0)) {
 			printw("You have taken the object and carefully stuffed it in your inventory.\n");
 			taken = true;
 			objs[i].location = &player;	
@@ -20,7 +26,7 @@ void take(char *noun) { //let's take something shall we
 			objs[i].id = player.id;	
 			break;
 		}
-		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location) && (!objs[i].can_move)) {
+		if (!strcmp(noun, objs[i].name) && (objs[i].location == player.location) && (!objs[i].weight == 0)) {
 			printw("You cannot take %s.\n", objs[i].name);
 			taken = true;
 			break;
@@ -70,6 +76,10 @@ void examine (char *noun) {
 			examined = true;
 			break;
 		}
+	}	
+	if (examined && !strcmp(noun, "buffet")) {
+		printw("Wait. You found a key in the buffet!\n");
+		objs[4].hidden = false;
 	}	
 	if (!examined) {
 		printw("%s isn't here or in your inventory to examine.\n", noun);

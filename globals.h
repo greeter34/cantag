@@ -2,7 +2,7 @@
 #define GLOBALS
 #include <stdbool.h>
 #define MAX_DESC 1024 
-#define TTL_OBJS 4 
+#define TTL_OBJS 5 
 #define TTL_LOCATIONS 32 
 //MAX_DESC will be the maximum length of a string for the long_desc in the locations structures
 //TTL_OBJS is the total number of actual objects in the game that the player can interact with
@@ -13,12 +13,7 @@ enum dir {NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, 
 
 typedef struct objects {
 	char name[30];
-
-	union { 
-		int weight;
-		bool can_move;	
-	};	
-
+	int weight; //set to 0 if item cannot be moved
 	short unsigned int id;	
 	struct objects *location; //set location to NULL to destroy an object
 	bool been_here;

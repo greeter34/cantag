@@ -25,7 +25,7 @@ void init_game() {
 		locations[i].been_here = false; //we have not been anywhere in the game when this function is called 
 		if (i < TTL_OBJS) {
 			objs[i].hidden = false;	
-			objs[i].can_move = false;
+			objs[i].weight = 0;
 		}	
 	}
 	
@@ -358,17 +358,23 @@ void init_game() {
 
 	//dining room couch
 	strcpy(objs[2].name, "couch");
-	objs[2].can_move = false;
 	objs[2].location = &locations[4]; //dining room
 	objs[2].id = 4;
 	strcpy(objs[2].short_desc, "An old couch upholstered in coarse purple fabric. A floral pattern can be faintly made out in it");
 	
 	//buffet table
 	strcpy(objs[3].name, "buffet");
-	objs[3].can_move = false;
 	objs[3].location = &locations[1]; //ground floor hall 
 	objs[3].id = 1;
 	strcpy(objs[3].short_desc, "An old wooden buffet table. It's been in your family for many years.");	
+
+	//key (hidden in buffet)
+	strcpy(objs[4].name, "key");
+	objs[4].weight = 1;
+	objs[4].location = &locations[1]; //ground floor hall
+	objs[4].id = 1;
+	objs[4].hidden = true;
+	strcpy(objs[4].short_desc, "An ancient key that looks like it was forged when this house was built.");
 
 	//sprites
 	player.id = USHRT_MAX;

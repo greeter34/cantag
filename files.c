@@ -6,8 +6,8 @@
 #include "globals.h"
 
 /* This group of functions relates to file handling, specifically saving and loading *    
- * game files. These functions may not yet be complete, and may need further         *
- * expansion as the game develops. However they should now be operational. A         *
+ * game files. These functions should now be complete, and should not need any       *
+ * more expansion as the game develops. However they should now be complete. A       *
  * temporary basic object is created containing an object ID (identical to the       *
  * unique location ID where the object exists, set to USHRT_MAX if in player         *
  * inventory) along with the needed boolean values been_here and hidden. These are   * 
@@ -44,7 +44,6 @@ void save(char *destination) {
 		failed = true;	
 		printw("Cannot open %s: File is NULL\nPlease specify another file path. This may be caused by a permissions issue.\nOtherwise, you may be out of disk space.\n\n");
 	}
-
 	if (!failed) {
 		for (i = 0; i < TTL_OBJS; i++) { //save objects first
 			temp_object.id = objs[i].id;
@@ -76,7 +75,6 @@ void load(char *destination) { //this function is incomplete
 		printw("Could not open %s: File is NULL\n", destination);
 		refresh();
    	}
-
 	if (!failed) {
 		for (i = 0; i < TTL_OBJS; i++) {
 			fread(&temp_object, sizeof(temp_object), 1, loadfile);
