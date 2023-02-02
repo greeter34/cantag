@@ -72,22 +72,21 @@ void display(char *to_output) { //displays the argument passed to it to the user
 	to_print = malloc(max_x + 1); //dynamically allocate enough memory for to_print to print one line
 	if (to_print == NULL) panic();
 	strcpy(to_print, "");
-	strcpy(description, to_output);	
+	strcpy(description, to_output);
 	token = strtok(description, " ");
-	while (token != NULL) {	
+	while (token != NULL) {
 		if (length + (strlen(token) + 2) > max_x) { 
 		//if the current length of text plus the next token and one space exceeds the width of the screen, immediately print the line to screen 
 			printw("%s\n", to_print);
 			length = strlen(token);
 			strcpy(to_print, "");
-		}	
+		}
 		strcat(to_print, token);
 		strcat(to_print, " ");
 		length += (strlen(token) + 1); //we add one to account for the space	
 		token = strtok(NULL, " ");
 	}
 	printw("%s\n\n", to_print);
-	print_objects(player.location);
 	refresh();
 	free(to_print);
 	return;
@@ -95,12 +94,14 @@ void display(char *to_output) { //displays the argument passed to it to the user
 
 void loop() {
 	char output_text[MAX_DESC];
-	if (player.location->been_here) {display(player.location->short_desc);}
-	else {
-		display(player.location->long_desc);
-		player.location->been_here = true;
-	} 
-	print_exits();		
+    if (player.location->been_here) {strcpy(output_text, player.location->short_desc);}
+    else {
+        strcpy(output_text, player.location->long_desc);
+        player.location->been_here = true;
+    }
+    display(output_text);
+	print_objects(player.location);
+	print_exits();
 	char cmd[80];
 	getnstr(cmd, 80);
 	parse(stl(cmd));

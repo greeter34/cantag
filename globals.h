@@ -14,7 +14,7 @@ enum dir {NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST, 
 typedef struct objects {
 	char name[30];
 	int weight; //set to 0 if item cannot be moved
-	short unsigned int id;	
+	short unsigned int id;
 	struct objects *location; //set location to NULL to destroy an object
 	bool been_here;
 	bool hidden; //objects can remain hidden until exmaine command is used to reveal them, at which point hidden is set to false

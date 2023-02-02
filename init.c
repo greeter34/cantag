@@ -24,7 +24,7 @@ void init_game() {
 		locations[i].id = i;
 		locations[i].been_here = false; //we have not been anywhere in the game when this function is called 
 		if (i < TTL_OBJS) {
-			objs[i].hidden = false;	
+			objs[i].hidden = false;
 			objs[i].weight = 0;
 		}	
 	}
@@ -68,7 +68,7 @@ void init_game() {
 	strcpy(locations[3].name, "Back hall");
 	strcpy(locations[3].short_desc, "The back hallway of the old mansion");
 	strcpy(locations[3].long_desc, "You are in the back hallway of the mansion. A single ceiling light with three bulbs "
-		"provides illumination. A gray plastic outdoor carpet protects the floor, a start contrast to the original "
+		"provides illumination. A gray plastic outdoor carpet protects the floor, a stark contrast to the original "
 		"hardwood floors in most of the rest of the house. Various coats hang from several bars in the corner of the "
 		"room as well.");	
 
@@ -175,8 +175,8 @@ void init_game() {
 	strcpy(locations[13].long_desc, "This is the master bedroom. Two huge windows look out over the side yard to the north "
 		"and let in a surpising amount of afternoon sunlight. You can see the trees blowing in the wind and faintly make "
 		"out the neighboring apartment building. A king sized bed, carved out of ebony, sits against the west wall. It "
-		"looks so comfortable you could almost take a nap in it right now. A wooden dresser rests against the east wall "
-		"opposite, a large antique mirror sitting on top. Oddly, unlike most of the other bedrooms, this one lacks a "
+		"looks so comfortable you could almost take a nap in it right now. A wooden dresser rests against the east wall. "
+		"There is also a large antique mirror sitting on top. Oddly, unlike most of the other bedrooms, this one lacks a "
 		"closet of any type.");
 
 	//Pink bedroom
@@ -185,7 +185,7 @@ void init_game() {
 	strcpy(locations[14].name, "Pink bedroom");	
 	strcpy(locations[14].short_desc, "You are in the pink bedroom.");
 	strcpy(locations[14].long_desc, "You stand in the pink bedroom. An odd light fixture that looks to be carved out of plaster "
-		"houses two lights. Old style pull down blinds can be found at the top of the windows. You can see far to the east "
+		"houses two lights. Old style pull down shades can be found at the top of the windows. You can see far to the east "
 		"being at the top of the hill, with much of the town visible in the distance. You also get a north view out two "
 		"tiny windows, allowing you to see the next door apartment building. Pink flowers adorn the walls and a wooden "
 		"bed painted pink can be found in this room, along with a matching pink dresser with oval beveled mirror. You "
@@ -213,7 +213,7 @@ void init_game() {
 	strcpy(locations[17].name, "Front bedroom closet");	
 	strcpy(locations[17].short_desc, "You are in the front bedroom closet");
 	strcpy(locations[17].long_desc, "You are in the front bedroom closet. This one is unique among all the walk in closets "
-		"for several reasons. It has a large window in the wall facing south towards the retirement home next door. It "
+		"for several reasons. It has a large window in the wall facing south towards the estate next door. It "
 		"also has a loveseat built into the wall in case you wanted to sit down. You feel like this may have been "
 		"renovated at some time in the past, resulting in it's present appearance."); 		 
 	
@@ -223,7 +223,7 @@ void init_game() {
 	strcpy(locations[18].name, "Side bedroom");	
 	strcpy(locations[18].short_desc, "You are in the side bedroom");
 	strcpy(locations[18].long_desc, "This bedroom has a waterbed that is very comfortable to sleep in, and difficult to escape "
-		"from when you're done. It also has an odd patchwork like carpet underneath of it that is only slightly larger than "
+		"from afterwards. It also has an odd patchwork like carpet underneath of it that is only slightly larger than "
 		"the footprint of the bed. It's very colorful, with lots of reds and blues in it. A brass light fixture lights the "
 		"room, supporting two rods with a light bulb on each end. A poster of our planet as viewed from space hangs on the "
 		"east wall.");
@@ -285,7 +285,7 @@ void init_game() {
 	strcpy(locations[25].name, "Attic side room");
 	strcpy(locations[25].short_desc, "A side room in the attic which could make a neat bedroom");
 	strcpy(locations[25].long_desc, "You are in a side room in the attic. A single large south facing window lets in incredible amounts "
-		"of light. The ceiling is sloped in this room and it feels oddly comfortable to be in here. Older looking, less finished "
+		"of light. The ceiling is sloped in this room and it feels oddly cosy to be in here. Older looking, less finished "
 		"hardwood floors can be found here.");
 
 	//Attic main room
@@ -323,16 +323,17 @@ void init_game() {
 		"to last for a year, although you've only ever seen your family use any over the Christmas holidays.");
 
 	//Basement room
-	locations[30].north = &locations[29]; //Firewood room
+	locations[30].north = &locations[29];
 	strcpy(locations[30].name, "Basement room");
-	strcpy(locations[30].short_desc, "This small basement room has various cans of solvents, thinners, and fuels, most of which are empty. "
+    strcpy(locations[30].short_desc, "A small basement room full of empty chemical bottles");
+	strcpy(locations[30].long_desc, "This small basement room has various cans of solvents, thinners, and fuels, most of which are empty. "
 		"It almost feels like this room was used for automotive repair, although there would have been no way to get a vehicle down here. "
-		"A tiny dirty window to the east only shows the base of one of the lilac trees on the estate grounds."); 	
+		"A tiny dirty window to the east only shows the base of one of the lilac trees on the estate grounds.");
 
 	//garage
 	locations[31].east = &locations[8]; //back vestibule
 	strcpy(locations[31].name, "Garage");
-	strcpy(locations[31].short_desc, "The garage, which currently has no vehicles in it.");
+	strcpy(locations[31].short_desc, "The garage, which currently has no vehicles in it");
 	strcpy(locations[31].long_desc, "This is the garage. While there are currently no vehicles in it, there is a freezer in the corner. There "
 		"is also a tobagan hanging from the ceiling, however it is out of reach, and you would have no use for it in the summer anyway. "
 		"The wooden floors are another peculiarity. They are starting to show their age and they bend and dip down whenever you step on "

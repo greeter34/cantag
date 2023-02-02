@@ -31,10 +31,10 @@ char *prompt() { //call this to query the user for a save or load file location
 }
 
 void restore(struct objects *temporary, int i) {
-	if (temporary->id == USHRT_MAX) {temporary->location = &player;}	
-	else {temporary->location = &locations[i];}	
+	if (temporary->id == USHRT_MAX) {temporary->location = &player;}
+	else {temporary->location = &locations[i];}
 	return;
-}	
+}
 
 void save(char *destination) {
 	FILE *savefile = fopen(destination, "wb");
